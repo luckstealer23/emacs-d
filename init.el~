@@ -1,0 +1,47 @@
+;;; Package.el
+(defconst lisp-dir
+  (expand-file-name "lisp" user-emacs-directory)
+  "Base path for customized Emacs configuration")
+(add-to-list 'load-path lisp-dir)
+(defconst *is-a-mac*
+  (eq system-type 'darwin)
+  "is this running on OS x?")
+(defconst *is-carbon-emacs*
+  (and *is-a-mac* (eq window-system 'mac))
+  "Is this the Carbon port of Emacs?")
+
+(defconst *is-cocoa-emacs*
+  (and *is-a-mac* (eq window-system 'ns))
+  "Is this the Cocoa version of Emacs?")
+
+(defconst *is-linux*
+  (eq system-type 'gnu/linux)
+  "Is this running on Linux?")
+
+(require 'init-utils)
+(require 'init-paths)
+(require 'init-editing)
+(require 'init-interface)
+(require 'init-packaging)
+(require 'init-use-package)
+(require 'init-backups)
+(use-package init-window-gui
+  :if (display-graphic-p))
+
+(use-package init-osx
+  :if *is-a-mac*)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("98cc377af705c0f2133bb6d340bf0becd08944a588804ee655809da5d8140de6" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
